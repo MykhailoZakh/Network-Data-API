@@ -5,7 +5,7 @@ const thoughtSchema = new Schema(
         thoughtText: { type: String, require: true, minLength: 1, maxLength: 280 },
         createdAt: { type: Date, default: Date.now },
         userName: { type: String, require: true },
-        userId: { type: String, require: true },
+        userId: { type: String, require: false },
         reactions: [
             {
                 type: Schema.Types.ObjectId,
@@ -32,7 +32,7 @@ thoughtSchema
 thoughtSchema
     .virtual('formatedDate')
     .get(function () {
-        return this.createdAt.getDate();
+        return this.createdAt.toLocaleDateString();
     })
 
 // Initialize our Thought model

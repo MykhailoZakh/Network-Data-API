@@ -1,9 +1,9 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, ObjectId } = require('mongoose');
 const mongoose = require('mongoose');
 // Schema to create Reaction model
 const reactionSchema = new Schema(
     {
-        reactionId: mongoose.ObjectId,
+        // reactionId: { type: Schema.Types.ObjectId, default: () => new Types.ObjectId() },
         reactionBody: { type: String, require: true, maxLength: 280 },
         createdAt: { type: Date, default: Date.now },
         userName: { type: String, require: true },
@@ -21,7 +21,7 @@ const reactionSchema = new Schema(
 reactionSchema
     .virtual('formatedDate')
     .get(function () {
-        return this.createdAt.getDate();
+        return this.createdAt.toLocaleDateString();
     })
 
 // Initialize our Reaction model
