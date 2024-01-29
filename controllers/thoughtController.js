@@ -98,10 +98,10 @@ module.exports = {
     // Add Reaction to selected Thought by ID
     async addReaction(req, res) {
         try {
-            const reaction = await Reaction.create(req.body)
+            // const reaction = await Reaction.create(req.body)
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $addToSet: { reactions: reaction._id } },
+                { $addToSet: { reactions: req.body } },
                 { new: true }
             );
             if (!thought) {
@@ -109,7 +109,7 @@ module.exports = {
                     message: 'No Thought with that ID',
                 })
             }
-            res.json(reaction);
+            res.json(thought);
         } catch (error) {
             console.error(error)
             res.status(500).json(error);
@@ -119,10 +119,10 @@ module.exports = {
     // Remove Reaction from thought by ID 
     async deleteReaction(req, res) {
         try {
-            const reaction = await Reaction.findOneAndRemove({ _id: req.params.reactionId });
+            // const reaction = await Reaction.findOneAndRemove({ _id: req.params.reactionId });
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $pull: { reactions: req.params.reactionId } },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { runValidators: true, new: true }
             );
             if (!thought) {
@@ -130,11 +130,11 @@ module.exports = {
                     message: 'No Thought with that ID',
                 })
             };
-            if (!reaction) {
-                return res.status(404).json({
-                    message: 'No Reaction with that ID',
-                })
-            };
+            // if (!reaction) {
+            //     return res.status(404).json({
+            //         message: 'No Reaction with that ID',
+            //     })
+            // };
             res.json(`Reaction successfully deleted`);
         } catch (error) {
             console.error(error);

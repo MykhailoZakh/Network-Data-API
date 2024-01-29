@@ -1,9 +1,9 @@
-const { Schema, model, ObjectId } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const mongoose = require('mongoose');
 // Schema to create Reaction model
 const reactionSchema = new Schema(
     {
-        // reactionId: { type: Schema.Types.ObjectId, default: () => new Types.ObjectId() },
+        reactionId: { type: Schema.Types.ObjectId, default: () => new Types.ObjectId() },
         reactionBody: { type: String, require: true, maxLength: 280 },
         createdAt: { type: Date, default: Date.now },
         userName: { type: String, require: true },
@@ -25,6 +25,6 @@ reactionSchema
     })
 
 // Initialize our Reaction model
-const Reaction = model('reaction', reactionSchema);
+// const Reaction = model('reaction', reactionSchema);
 
-module.exports = Reaction;
+module.exports = reactionSchema;

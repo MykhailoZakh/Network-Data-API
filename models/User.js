@@ -4,12 +4,13 @@ const userSchema = new Schema(
     {
         userName: { type: String, require: true, unique: true, trim: true },
         email: {
-            type: String, require: true, unique: true, trim: true, validate: {
-                validator: function (v) {
-                    return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
-                }
-            },
-            // match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+            type: String, require: true, unique: true, trim: true,
+            // validate: {
+            //     validator: function (v) {
+            //         return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
+            //     }
+            // },
+            match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
         },
         thoughts: [
             {

@@ -63,19 +63,12 @@ module.exports = {
                 return res.status(404).json({ message: 'No such student exists' })
             }
 
-            // const users = await User.updateMany(
-            //     { students: req.params.studentId },
-            //     { $pull: { students: req.params.studentId } },
-            //     { new: true }
-            // );
-
-            // if (!course) {
-            //     return res.status(404).json({
-            //         message: 'Student deleted, but no courses found',
-            //     });
-            // }
-
-            res.json({ message: 'User successfully deleted' });
+            const thoughts = await Thought.deleteMany({ userId: req.params.userId });
+            if (!thoughts) {
+                return res.status(404).json({ message: 'No such student exists' })
+            }
+            // res.json({ message: 'User successfully deleted' });
+            res.json(thoughts);
         } catch (error) {
             console.log(error);
             res.status(500).json(err);
